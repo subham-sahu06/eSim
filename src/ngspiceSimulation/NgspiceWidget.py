@@ -135,7 +135,7 @@ class NgspiceWidget(QtWidgets.QWidget):
             else:
                 # For Linux: use .raw file in xterm and gaw
                 raw_file = os.path.abspath(command.replace(".cir.out", ".raw"))
-                commandi = f'cd "{projPath}"; ngspice -p "{raw_file}"'
+                commandi = f'cd "{projPath}"; ngspice -r "{raw_file}" "{os.path.abspath(command)}"'
 
                 xtermArgs = ['-hold', '-e', commandi]
                 self.xtermProcess = QtCore.QProcess(self)
