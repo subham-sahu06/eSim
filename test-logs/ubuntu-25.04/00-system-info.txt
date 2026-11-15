@@ -1,0 +1,8 @@
+Distributor ID:	Ubuntu
+Description:	Ubuntu 25.04
+Release:	25.04
+Codename:	plucky
+6.14.0-37-generic
+Python 3.13.3
+Command 'gcc' not found, but can be installed with:
+sudo apt install gcc

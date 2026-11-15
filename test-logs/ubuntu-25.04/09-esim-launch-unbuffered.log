@@ -1,0 +1,12 @@
+Starting eSim......
+Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
+QTextBrowser: No document for file:///home/subhamsahu/esim25/eSim-2.5/src/browser/library/browser/welcome.html
+Function : Create workspace
+/home/subhamsahu/eSim-Workspace
+Function : Open Project
+Function: Validating Open Project Information
+True
+Complete Project Path :  /home/subhamsahu/esim25/eSim-2.5/Examples/RC
+Project Name :  RC
+NBLIST ['in', 'out']
+[1, 0]
