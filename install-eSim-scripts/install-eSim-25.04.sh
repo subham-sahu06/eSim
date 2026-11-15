@@ -160,7 +160,7 @@ function installDependency
     trap error_exit ERR
     
     echo "Instaling virtualenv......................."
-    sudo apt install python3-virtualenv
+    sudo apt install -y python3-virtualenv
    
     echo "Creating virtual environment to isolate packages "
     virtualenv $config_dir/env
