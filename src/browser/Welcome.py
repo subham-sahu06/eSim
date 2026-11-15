@@ -16,7 +16,7 @@ class Welcome(QtWidgets.QWidget):
 
         # Only this block is changed:
         # Point to welcome.html relative to the installed .exe location
-        base_path = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(__file__)
+        base_path = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.join(os.path.dirname(__file__), '..', '..')
         html_path = os.path.abspath(os.path.join(base_path, "library/browser/welcome.html"))
 
         self.browser.setSource(QtCore.QUrl.fromLocalFile(html_path))
