@@ -7,8 +7,21 @@
 </p>
 
 <p align="center">
-  <b>Screening Task 4 · FOSSEE Winter Internship 2026</b>
+  <b>Screening Task 4 · FOSSEE Semester Long Internship - Autumn 2026</b>
 </p>
+
+---
+
+## 📝 Note for Evaluator
+
+> **Installer script fixes are on this `installers` branch as requested in the task.**
+> The complete end-to-end tested eSim 2.5 bundle (with the `nghdl.zip` diff and the GUI fixes) is maintained on the [`ubuntu-25.04-fixes`](https://github.com/subham-sahu06/eSim/tree/ubuntu-25.04-fixes) branch.
+
+Test it on a fresh Ubuntu 25.04 system in one line:
+
+```bash
+git clone --single-branch -b ubuntu-25.04-fixes https://github.com/subham-sahu06/eSim.git && cd eSim && ./install-eSim.sh --install
+```
 
 ---
 
@@ -58,6 +71,7 @@ The `installers` branch has only the installer scripts. The fixes for `nghdl.zip
 
 | # | Problem | Proof | Fix | Commit |
 | --- | --- | --- | --- | --- |
+| | **A. Critical installer blockers** | | | |
 | 1 | Installer has no case for 25.04 and exits | [log 01](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/01-install-unmodified.log) | Add a 25.04 case and `install-eSim-25.04.sh` | [e8dc2e6](https://github.com/subham-sahu06/eSim/commit/e8dc2e6) |
 | 2 | Detected version is empty on 25.04 | [log 01](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/01-install-unmodified.log) | Make the third part of the version optional | [254d8f2](https://github.com/subham-sahu06/eSim/commit/254d8f2) |
 | 3 | KiCad from the PPA needs libgit2-1.8, which 25.04 does not have | [log 02](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/02-install-fixed.log) | Install KiCad 8.0.8 from the Ubuntu archive | [9d2e26f](https://github.com/subham-sahu06/eSim/commit/9d2e26f) |
@@ -65,10 +79,12 @@ The `installers` branch has only the installer scripts. The fixes for `nghdl.zip
 | 5 | `exit 0` in a function ends the whole installer if KiCad 8 is installed | [log 04](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/04-install-nghdl-fix.log) | Use `return 0` | [a7cda98](https://github.com/subham-sahu06/eSim/commit/a7cda98) |
 | 6 | `libcanberra-gtk-module` has no installation candidate | [log 05](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/05-install-kicad-return.log) | Install only `libcanberra-gtk3-module` | [0079645](https://github.com/subham-sahu06/eSim/commit/0079645) |
 | 7 | GHDL 4.1.0 does not accept LLVM 20 | [log 06](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/06-install-canberra-fix.log) | Build GHDL with `llvm-18` | [6e7d99a](https://github.com/subham-sahu06/eSim/commit/6e7d99a) |
-| 8 | "Ngspice plots" passes the binary `.raw` file to ngspice as input | [log 10](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/10-esim-ngspice-plot-fix.log) | Pass the netlist, and the `.raw` file with `-r` | [80ad808](https://github.com/subham-sahu06/eSim/commit/80ad808) |
+| 8 | `Ubuntu/install-eSim.sh` on the `installers` branch has a syntax error | `bash -n` | Restore the `else` branch, remove leftover lines | [4819756](https://github.com/subham-sahu06/eSim/commit/4819756) |
+| | **B. Installer and runtime fixes** | | | |
 | 9 | `apt install python3-virtualenv` waits for [Y/n] | [log 02](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/02-install-fixed.log) | Add `-y` | [f1546f1](https://github.com/subham-sahu06/eSim/commit/f1546f1) |
 | 10 | Welcome page is empty on Linux | [log 08](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/08-esim-launch.log) | Look for `welcome.html` two folders up | [9dbcc8a](https://github.com/subham-sahu06/eSim/commit/9dbcc8a) |
-| 11 | `Ubuntu/install-eSim.sh` on the `installers` branch has a syntax error | `bash -n` | Restore the `else` branch, remove leftover lines | [4819756](https://github.com/subham-sahu06/eSim/commit/4819756) |
+| | **C. Simulation fixes** | | | |
+| 11 | "Ngspice plots" passes the binary `.raw` file to ngspice as input | [log 10](https://github.com/subham-sahu06/eSim/blob/ubuntu-25.04-fixes/test-logs/ubuntu-25.04/10-esim-ngspice-plot-fix.log) | Pass the netlist, and the `.raw` file with `-r` | [80ad808](https://github.com/subham-sahu06/eSim/commit/80ad808) |
 
 On the `installers` branch, fixes 2, 3, 5 and 9 are [9ce4c02](https://github.com/subham-sahu06/eSim/commit/9ce4c02), [3e12cc5](https://github.com/subham-sahu06/eSim/commit/3e12cc5), [4c24b95](https://github.com/subham-sahu06/eSim/commit/4c24b95) and [481390d](https://github.com/subham-sahu06/eSim/commit/481390d).
 
@@ -77,6 +93,8 @@ On the `installers` branch, fixes 2, 3, 5 and 9 are [9ce4c02](https://github.com
 ## 🔬 Issue Details
 
 Click an issue to open it.
+
+### A. Critical installer blockers
 
 <details>
 <summary><b>1. No 25.04 case in install-eSim.sh</b></summary>
@@ -147,20 +165,14 @@ nghdl builds GHDL 4.1.0 from source. Its `configure` accepts LLVM versions up to
 </details>
 
 <details>
-<summary><b>8. Ngspice plots read the .raw file as a netlist</b></summary>
+<summary><b>8. Syntax error on the installers branch</b></summary>
 
-After "Do you want Ngspice plots?" → Yes, the xterm showed "UTF-8 syntax error in line 14" and "fatal error in ngspice". In the release, line 138 of `src/ngspiceSimulation/NgspiceWidget.py` is:
+The task asks to commit on the `installers` branch, so I checked its `Ubuntu/install-eSim.sh` as well. `bash -n` reports "syntax error near unexpected token '}'" at line 70: after the merge of 2026-05-29, `run_version_script` holds lines that belong to the version scripts and is missing its `else` branch. I restored the `else` branch and removed the extra lines; the main part of the script does not use them. The file now passes `bash -n`.
 
-```python
-commandi = f'cd "{projPath}"; ngspice -p "{raw_file}"'
-```
-
-So ngspice reads the binary `.raw` output as its input file. The xterm title `RC.raw"` confirmed which file was last on the command line. Running `ngspice -r RC.raw RC.cir.out` by hand, and the same command inside xterm, worked. The fix passes the netlist as input and the `.raw` file with `-r`, as in the v2.5 tag on GitHub:
-
-```python
-commandi = f'cd "{projPath}"; ngspice -r "{raw_file}" "{os.path.abspath(command)}"'
-```
+On the `installers` branch I then applied fixes 2, 3, 5 and 9, one commit each. Its `install-eSim-25.04.sh` is now the same file that was tested on the fresh system.
 </details>
+
+### B. Installer and runtime fixes
 
 <details>
 <summary><b>9. A prompt in the middle of the install</b></summary>
@@ -180,13 +192,24 @@ QTextBrowser: No document for file:///.../src/browser/library/browser/welcome.ht
 `Welcome.py` uses the `.exe` folder on Windows, and otherwise `os.path.dirname(__file__)`, which is `src/browser`. The file is at `library/browser/welcome.html`, two folders up. The fix changes only the non-Windows path.
 </details>
 
+### C. Simulation fixes
+
 <details>
-<summary><b>11. Syntax error on the installers branch</b></summary>
+<summary><b>11. Ngspice plots read the .raw file as a netlist</b></summary>
 
-The task asks to commit on the `installers` branch, so I checked its `Ubuntu/install-eSim.sh` as well. `bash -n` reports "syntax error near unexpected token '}'" at line 70: after the merge of 2026-05-29, `run_version_script` holds lines that belong to the version scripts and is missing its `else` branch. I restored the `else` branch and removed the extra lines; the main part of the script does not use them. The file now passes `bash -n`.
+After "Do you want Ngspice plots?" → Yes, the xterm showed "UTF-8 syntax error in line 14" and "fatal error in ngspice". In the release, line 138 of `src/ngspiceSimulation/NgspiceWidget.py` is:
 
-On the `installers` branch I then applied fixes 2, 3, 5 and 9, one commit each. Its `install-eSim-25.04.sh` is now the same file that was tested on the fresh system.
+```python
+commandi = f'cd "{projPath}"; ngspice -p "{raw_file}"'
+```
+
+So ngspice reads the binary `.raw` output as its input file. The xterm title `RC.raw"` confirmed which file was last on the command line. Running `ngspice -r RC.raw RC.cir.out` by hand, and the same command inside xterm, worked. The fix passes the netlist as input and the `.raw` file with `-r`, as in the v2.5 tag on GitHub:
+
+```python
+commandi = f'cd "{projPath}"; ngspice -r "{raw_file}" "{os.path.abspath(command)}"'
+```
 </details>
+
 
 ---
 
@@ -274,7 +297,7 @@ installers branch
 ├── README.md                         # this page
 ├── docs/ubuntu-25.04/                # diagram and screenshots
 └── Ubuntu/
-    ├── install-eSim.sh               # issues 2 and 11
+    ├── install-eSim.sh               # issues 2 and 8
     ├── install-eSim-scripts/
     │   └── install-eSim-25.04.sh     # issues 3, 5 and 9
     └── UBUNTU-25.04-FIXES.md         # short notes
@@ -284,7 +307,7 @@ ubuntu-25.04-fixes branch
 ├── install-eSim-scripts/
 │   └── install-eSim-25.04.sh         # issues 3, 5 and 9
 ├── nghdl.zip                         # issues 4, 6 and 7
-├── src/ngspiceSimulation/NgspiceWidget.py   # issue 8
+├── src/ngspiceSimulation/NgspiceWidget.py   # issue 11
 ├── src/browser/Welcome.py            # issue 10
 └── test-logs/ubuntu-25.04/           # every install and launch log
 ```
@@ -308,7 +331,7 @@ B.Tech, Computer Science and Engineering (AI & ML)
 NIST University, Berhampur, Odisha
 GitHub: [@subham-sahu06](https://github.com/subham-sahu06)
 
-*Submitted as Screening Task 4 (eSim Upgradation) for the FOSSEE Winter Internship 2026.*
+*Submitted as Screening Task 4 (eSim Upgradation) for the FOSSEE Semester Long Internship - Autumn 2026.*
 
 ---
 
